@@ -1,0 +1,18 @@
+import { Fragment, memo } from "react"
+
+const PhotosPlacerholder = memo(({showCount}:{showCount:number}) => {
+    return (
+        <Fragment>
+            <div className="grid grid-cols-10 gap-5 gap-y-2 animate-pulse flex">
+                {Array.from({ length: showCount }, (idx) => idx).map((_, index)=>(  
+                    <div className="mb-3" key={index}>
+                    <div  className="w-24 h-24 rounded-lg bg-gray-100 shadow-inner  object-cover animate-pluse" />
+                    <div className="h-2 bg-gray-100 rounded mt-2 w-full"></div>
+                    </div>
+                ))}
+            </div>
+        </Fragment>
+    )
+})
+PhotosPlacerholder.displayName="FolderPlaceholder"
+export default PhotosPlacerholder

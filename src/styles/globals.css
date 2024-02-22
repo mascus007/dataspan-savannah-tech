@@ -1,0 +1,83 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* :root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+} */
+
+body {
+  color: #041D32;
+
+  background: #FFFFFF;
+  font-family:"Montserrat";
+  font-size: 12px;
+
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+.btn-primary{
+  border-color: #3D9BE9;
+}
+.btn-primary i {
+  color: #3D9BE9;
+}
+
+.btn-success{
+  border-color: #BADA55;
+}
+.btn-success i {
+  color: #BADA55;
+}
+
+.btn-secondary{
+  border-color: #2CE1CB;
+}
+.btn-secondary i {
+  color: #2CE1CB;
+}
+
+.btn-warning{
+  border-color: #FFD75C;
+}
+.btn-warning i {
+  color: #FFD75C;
+}
+
+.btn-danger{
+  border-color: #F25858;
+}
+.btn-danger i {
+  color: #F25858;
+}
+
+.btn-warning2{
+  border-color: #FDB03E;
+}
+.btn-warning2 i {
+  color: #FDB03E;
+}
+
+.btn-secondary2{
+  border-color: #D783FF;
+}
+.btn-secondary2 i {
+  color: #D783FF;
+}
+
+
