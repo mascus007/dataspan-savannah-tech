@@ -1,6 +1,18 @@
 import { getImageNameFormKey } from "@/utils/helpers";
 // import AWS from "aws-sdk";
-const AWS = require('aws-sdk');
+import AWS from 'aws-sdk';
+
+AWS.config.update({
+  region: 'eu-central-1',
+  credentials: new AWS.CognitoIdentityCredentials({
+    IdentityPoolId: 'eu-central-1:31ebe2ab-fc9d-4a2c-96a9-9dee9a9db8b9',
+  }),
+});
+
+const s3 = new AWS.S3({
+  apiVersion: '2006-03-01',
+  params: { Bucket: 'dataspan.frontend-home-assignment' },
+}) as any;
 
 import { NextApiRequest, NextApiResponse } from "next";
 
@@ -12,10 +24,10 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     try {
         const albumBucketName = 'dataspan.frontend-home-assignment';
         const albumPhotosKey = encodeURIComponent(albumName as string) + '/';
-        const s3 = new AWS.S3({
-            apiVersion: '2006-03-01',
-            params: { Bucket: albumBucketName },
-        }) as any;
+        // const s3 = new AWS.S3({
+        //     apiVersion: '2006-03-01',
+        //     params: { Bucket: albumBucketName },
+        // }) as any;
 
         const data = await s3.listObjects({ Prefix: albumPhotosKey }).promise();
 
