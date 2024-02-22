@@ -41,7 +41,7 @@ export default function DashboardView() {
       .then((data) => {
         setPhotos(data);
         setCurrentAlbum(albumName);
-        const totalCountAll = photos?.allGroups?.length
+        const totalCountAll = data?.allGroups?.length
         if(totalCountAll)setActivePhotoCount(totalCountAll)
         setIsLoading(false)
       })
