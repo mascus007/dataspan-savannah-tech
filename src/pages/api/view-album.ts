@@ -1,5 +1,6 @@
 import { getImageNameFormKey } from "@/utils/helpers";
-import AWS from "aws-sdk";
+// import AWS from "aws-sdk";
+const AWS = require('aws-sdk');
 
 import { NextApiRequest, NextApiResponse } from "next";
 
