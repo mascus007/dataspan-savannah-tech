@@ -12,7 +12,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         const albumBucketName = 'dataspan.frontend-home-assignment';
         const albumPhotosKey = encodeURIComponent(albumName as string) + '/';
         const s3 = new AWS.S3({
-            // apiVersion: '2006-03-01',
+            apiVersion: '2006-03-01',
             params: { Bucket: albumBucketName },
         }) as any;
 
