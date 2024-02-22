@@ -27,12 +27,12 @@ export default function AllGroups({photos}:{photos: any[]}){
         <div>
             <div className="grid grid-cols-10 gap-3 gap-y-2">
                 {currentData?.map((photo:any, idx:number) => (
-                    <div key={idx} >
+                    <div key={idx} className="mb-1">
                         <img 
                             className="w-24 h-24 rounded-lg bg-white shadow-inner  object-cover cursor-pointer" 
                             onClick={() => handleShow(photo)} src={photo.image} alt={photo.image} 
                         />
-                        <small className="truncate">{photo.name}</small>
+                        <div className="truncate" title={photo.name}>{photo.name}</div>
                     </div>
                 ))}
             </div>
@@ -41,7 +41,7 @@ export default function AllGroups({photos}:{photos: any[]}){
             {showImage &&
                 <ModalDialog
                     width={'md:w-[500px] sm:!mt-40'}
-                    title={"Figma1222_.jpg"}
+                    title={photoData.name}
                     showModal={showImage}
                     body={<div>
                             <p className="mb-3">Details: </p>

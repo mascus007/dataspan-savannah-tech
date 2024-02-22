@@ -28,7 +28,6 @@ export default function DashboardView() {
       .then((data) => {
         setAlbums(data.albums);
         viewAlbum(data.albums[0]);
-        setPhotos([]);
       })
       .catch((error) => console.error('Error fetching albums:', error));
   };
@@ -135,7 +134,7 @@ export default function DashboardView() {
         <div className="w-3/4">
             <div className="px-5">
                 <div className="flex justify-between">
-                    <div className="text-[32px] font-[600] capitalize">{currentAlbum} </div>
+                    <div className="text-[32px] font-[600] ">{currentAlbum} </div>
                     <div className="mt-3">
                         <span> <span className="font-[600]">{activePhotoCount}</span> images</span>
                     </div>

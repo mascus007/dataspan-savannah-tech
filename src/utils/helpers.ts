@@ -1,8 +1,6 @@
-export function getImageNameFormUrl(imageUrl: string){
-    let imageName = ""
-    const imageNameMatch = imageUrl.match(/\/([^/]+)_jpg\.rf\.[a-f0-9]+\.jpg/);
-    if (imageNameMatch && imageNameMatch[1]) {
-        imageName = imageNameMatch[1];
-    } 
-    return imageName
+export function getImageNameFormKey(imageUrl: string){
+    const imagePath = imageUrl?.split(".")?.[0]
+    const namePath = imagePath?.split("/");
+    const name = namePath[namePath.length - 1];
+    return name
 }

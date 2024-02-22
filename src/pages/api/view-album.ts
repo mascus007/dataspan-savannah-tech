@@ -1,4 +1,4 @@
-import { getImageNameFormUrl } from "@/utils/helpers";
+import { getImageNameFormKey } from "@/utils/helpers";
 import AWS from "aws-sdk";
 
 import { NextApiRequest, NextApiResponse } from "next";
@@ -37,19 +37,20 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         testData = testData.Contents.slice(0, 200).map((photo: any) => ({
             key: photo.Key,
             image: `${baseUrl}${encodeURIComponent(photo.Key)}`,
-            name: "Humerus"
+            name: getImageNameFormKey(photo.Key)
+            
         }));
 
         trainData = trainData.Contents.slice(0, 200).map((photo: any) => ({
             key: photo.Key,
             image: `${baseUrl}${encodeURIComponent(photo.Key)}`,
-            name: "Elbow positive"
+            name: getImageNameFormKey(photo.Key)
         }));
 
         validData = validData.Contents.slice(0, 200).map((photo: any) => ({
             key: photo.Key,
             image: `${baseUrl}${encodeURIComponent(photo.Key)}`,
-            name: "Fingers positive"
+            name: getImageNameFormKey(photo.Key)
         }));
 
         res.status(200).json({ 

@@ -81,3 +81,6 @@ body {
 }
 
 
+.capitalize-text {
+  text-transform: capitalize;
+}

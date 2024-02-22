@@ -28,12 +28,12 @@ export default function Test({photos}:{photos: any[]}){
         <div>
             <div className="grid grid-cols-10 gap-3 gap-y-2">
                 {currentData?.map((photo:any, idx:number) => (
-                    <div key={idx} >
+                    <div key={idx} className="mb-1">
                         <img 
                             className="w-24 h-24 rounded-lg bg-white shadow-inner  object-cover cursor-pointer" 
                             onClick={() => handleShow(photo)} src={photo.image} alt={photo.image} 
                         />
-                        <small className="truncate">{photo.name}</small>
+                        <div className="truncate" title={photo.name}>{photo.name}</div>
                     </div>
                 ))}
             </div>
@@ -42,10 +42,11 @@ export default function Test({photos}:{photos: any[]}){
             {showImage &&
                 <ModalDialog
                     width={'md:w-[500px] sm:!mt-40'}
-                    title={'Register for the '}
+                    title={photoData.name}
                     showModal={showImage}
                     body={<div>
-                            <p className="mb-5">Details: </p>
+                            <p className="mb-3">Details: </p>
+                            <button className=" rounded-full  px-5 mb-4 bg-yellow-400">fracture_1</button>
                             <img className="w-full h-full rounded-lg bg-white shadow-inner object-cover cursor-pointer"  src={photoData?.image} alt={photoData?.image} />
                         </div>}
                     setShowModal={setShowImage}
