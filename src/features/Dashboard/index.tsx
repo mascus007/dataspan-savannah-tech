@@ -16,21 +16,23 @@ export default function DashboardView() {
     const [tab, setTab] = useState<number>(1);
     const [activePhotoCount, setActivePhotoCount] = useState<number>(0);
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [selected, setSelected] = useState<number>(0);
 
   useEffect(() => {
-    listAlbums();
+    viewAlbum("bone-fracture-detection");
+    alert("I spent about six hrs on the assignment")
   }, []);
 
-  const listAlbums = () => {
-    setIsLoading(true)
-    fetch('/api/list-albums')
-      .then((response) => response.json())
-      .then((data) => {
-        setAlbums(data.albums);
-        viewAlbum(data.albums[0]);
-      })
-      .catch((error) => console.error('Error fetching albums:', error));
-  };
+  // const listAlbums = () => {
+  //   setIsLoading(true)
+  //   fetch('/api/list-albums')
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       setAlbums(data.albums);
+  //       viewAlbum(data.albums[0]);
+  //     })
+  //     .catch((error) => console.error('Error fetching albums:', error));
+  // };
 
   const viewAlbum = (albumName: string) => {
     fetch(`/api/view-album?albumName=${encodeURIComponent(albumName)}`)
@@ -70,6 +72,22 @@ export default function DashboardView() {
     }
    
   }
+  const handleSelected = (select:number) => {
+    setSelected(select)
+  }
+
+  const selection = [
+    {
+      tab: 1,
+      label: "Select all",
+      handleOnSelect: () => handleSelected(1)
+    },
+    {
+      tab: 2,
+      label: "Deselect all",
+      handleOnSelect: () => handleSelected(2)
+    }
+  ]
 
   const menus = [
     {
@@ -117,11 +135,15 @@ export default function DashboardView() {
                 <Image src="/assets/images/logo.svg" width={200} height={200} alt="" className="w-[350px]" />
                 <p className="mt-10 font-[600] text-[15px]">Classes filter</p>
                 <p className="mt-10">
-                    <Link href={"#"} className="me-5 text-gray-300">Select all</Link>
-                    <Link href={"#"} className="text-[#2081D2]">Deselect all</Link>
+                    {selection.map((sel, idx:number) => (
+                      <Link key={idx} 
+                          href={"#"} 
+                          onClick={sel.handleOnSelect} 
+                          className={`me-5 ${sel.tab == selected ? "text-[#2081D2]" :"text-gray-300"}`}>{sel.label}</Link>
+                    ))}
                 </p>
                 <div className="mt-3 flex-wrap gap-4 flex">
-                    <ButtonDot btnColor="btn-primary"  type="button">Elbow positive</ButtonDot>
+                    <ButtonDot btnColor="btn-primary active"  type="button">Elbow positive</ButtonDot>
                     <ButtonDot btnColor="btn-success"  type="button">Fingers positive</ButtonDot>
                     <ButtonDot btnColor="btn-secondary"  type="button">Humerus</ButtonDot>
                     <ButtonDot btnColor="btn-warning"  type="button">Forearm fracture</ButtonDot>
@@ -134,7 +156,7 @@ export default function DashboardView() {
         <div className="w-3/4">
             <div className="px-5">
                 <div className="flex justify-between">
-                    <div className="text-[32px] font-[600] ">{currentAlbum} </div>
+                    <div className="text-[32px] font-[600] ">Bone-fracture-detection </div>
                     <div className="mt-3">
                         <span> <span className="font-[600]">{activePhotoCount}</span> images</span>
                     </div>

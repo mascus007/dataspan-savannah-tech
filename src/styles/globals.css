@@ -38,6 +38,10 @@ body {
   color: #3D9BE9;
 }
 
+.btn-primary .active {
+  background-color: #3D9BE9;
+}
+
 .btn-success{
   border-color: #BADA55;
 }
@@ -78,9 +82,4 @@ body {
 }
 .btn-secondary2 i {
   color: #D783FF;
-}
-
-
-.capitalize-text {
-  text-transform: capitalize;
 }
