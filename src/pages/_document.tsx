@@ -4,7 +4,6 @@ export default function Document() {
   return (
     <Html>
         <Head>
-            <title>ScanPort</title>
             <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" />
             <link
                 rel="stylesheet"
