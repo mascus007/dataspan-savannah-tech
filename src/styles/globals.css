@@ -37,9 +37,8 @@ body {
 .btn-primary i {
   color: #3D9BE9;
 }
-
-.btn-primary .active {
-  background-color: #3D9BE9;
+.btn-primary.active {
+  background-color: #3d9be940;
 }
 
 .btn-success{
@@ -48,12 +47,18 @@ body {
 .btn-success i {
   color: #BADA55;
 }
+.btn-success.active {
+  background-color: #bbda5549;
+}
 
 .btn-secondary{
   border-color: #2CE1CB;
 }
 .btn-secondary i {
   color: #2CE1CB;
+}
+.btn-secondary.active {
+  background-color: #2ce1cc52;
 }
 
 .btn-warning{
@@ -62,12 +67,18 @@ body {
 .btn-warning i {
   color: #FFD75C;
 }
+.btn-warning.active{
+  background-color: #ffd65c49;
+}
 
 .btn-danger{
   border-color: #F25858;
 }
 .btn-danger i {
   color: #F25858;
+}
+.btn-danger.active {
+  background-color: #f258584b;
 }
 
 .btn-warning2{
@@ -76,10 +87,16 @@ body {
 .btn-warning2 i {
   color: #FDB03E;
 }
+.btn-warning2.active {
+  background-color: #fdb13e4f;
+}
 
 .btn-secondary2{
   border-color: #D783FF;
 }
 .btn-secondary2 i {
   color: #D783FF;
+}
+.btn-secondary2.active {
+  background-color: #d883ff4e;
 }

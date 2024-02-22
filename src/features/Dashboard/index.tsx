@@ -17,6 +17,7 @@ export default function DashboardView() {
     const [activePhotoCount, setActivePhotoCount] = useState<number>(0);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [selected, setSelected] = useState<number>(0);
+    const [selectedClassFilter, setSelectedClassFilter] = useState<any[]>([]);
 
   useEffect(() => {
     viewAlbum("bone-fracture-detection");
@@ -75,6 +76,20 @@ export default function DashboardView() {
   }
   const handleSelected = (select:number) => {
     setSelected(select)
+    if(select == 1){
+      setSelectedClassFilter(
+        [
+          "elbow_positive",
+          "fingers_positive",
+          "humerus",
+          "forearm_fracture",
+          "humerus_fracture",
+          "shoulder_fracture",
+          "wrist_positive"
+      ])
+    }else{
+      setSelectedClassFilter([])
+    }
   }
 
   const selection = [
@@ -116,6 +131,60 @@ export default function DashboardView() {
     }
   ]
 
+  const classFilterButtons = [
+    {
+      label: "Elbow positive",
+      btnColor: "btn-primary",
+      btnName: "elbow_positive",
+      onclick: () => handleSelectClassFilter("elbow_positive")
+    },
+    {
+      label: "Fingers positive",
+      btnColor: "btn-success",
+      btnName: "fingers_positive",
+      onclick: () => handleSelectClassFilter("fingers_positive")
+    },
+    {
+      label: "Humerus",
+      btnColor: "btn-secondary",
+      btnName: "humerus",
+      onclick: () => handleSelectClassFilter("humerus")
+    },
+    {
+      label: "Forearm fracture",
+      btnColor: "btn-warning",
+      btnName: "forearm_fracture",
+      onclick: () => handleSelectClassFilter("forearm_fracture")
+    },
+    {
+      label: "Humerus fracture",
+      btnColor: "btn-danger",
+      btnName: "humerus_fracture",
+      onclick: () => handleSelectClassFilter("humerus_fracture")
+    },
+    {
+      label: "Shoulder fracture",
+      btnColor: "btn-warning2",
+      btnName: "shoulder_fracture",
+      onclick: () => handleSelectClassFilter("shoulder_fracture")
+    },
+    {
+      label: "Wrist positive",
+      btnColor: "btn-secondary2",
+      btnName: "wrist_positive",
+      onclick: () => handleSelectClassFilter("wrist_positive")
+    }
+  ]
+
+  const handleSelectClassFilter = (btnName:string) =>{
+    setSelectedClassFilter([btnName])
+  }
+  const clearFilters = () =>{
+    setSelectedClassFilter([])
+    setSelected(0)
+  }
+
+
   const getTabContent = (tab : number) =>{
     const contentObj = {
       1: <AllGroups photos={photos?.allGroups || []}/>,
@@ -126,6 +195,7 @@ export default function DashboardView() {
 
     return contentObj[tab]
   }
+
   
     
   return (
@@ -140,17 +210,31 @@ export default function DashboardView() {
                       <Link key={idx} 
                           href={"#"} 
                           onClick={sel.handleOnSelect} 
-                          className={`me-5 ${sel.tab == selected ? "text-[#2081D2]" :"text-gray-300"}`}>{sel.label}</Link>
+                          className={`me-5 ${sel.tab == selected ? "text-[#2081D2]" :"text-gray-400"}`}>{sel.label}</Link>
                     ))}
                 </p>
                 <div className="mt-3 flex-wrap gap-4 flex">
-                    <ButtonDot btnColor="btn-primary active"  type="button">Elbow positive</ButtonDot>
-                    <ButtonDot btnColor="btn-success"  type="button">Fingers positive</ButtonDot>
-                    <ButtonDot btnColor="btn-secondary"  type="button">Humerus</ButtonDot>
-                    <ButtonDot btnColor="btn-warning"  type="button">Forearm fracture</ButtonDot>
-                    <ButtonDot btnColor="btn-danger"  type="button">Humerus fracture</ButtonDot>
-                    <ButtonDot btnColor="btn-warning2"  type="button">Shoulder fracture</ButtonDot>
-                    <ButtonDot btnColor="btn-secondary2"  type="button">Wrist positive</ButtonDot>
+                    {classFilterButtons.map((filterBtn, idx:number) => (
+                      <ButtonDot 
+                        key={idx} 
+                        onClick={filterBtn.onclick}
+                        btnColor={`${filterBtn.btnColor} 
+                        ${selectedClassFilter.includes(filterBtn.btnName) ? "active": ""}`}  
+                        type="button">{filterBtn.label}</ButtonDot>
+                    ))}
+                    
+                </div>
+                <div>
+                  <p className="font-[600] mt-5">Poligon range</p>
+                  <div className="flex justify-between mb-20 mt-3">
+                    <div>min <span className="font-[600]">0</span> </div>
+                    <div>max  <span className="font-[600]">4</span></div>
+                  </div>
+                  
+                  <div className="flex justify-between mt-5">
+                    <div className="font-[600] cursor-pointer" onClick={clearFilters}><i className="bi bi-trash"/>Clear filters </div>
+                    <div className="text-gray-400 cursor-pointer">Need help? </div>
+                  </div>
                 </div>
             </div>
         </div>
