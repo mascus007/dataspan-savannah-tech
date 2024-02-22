@@ -35,6 +35,7 @@ export default function DashboardView() {
   // };
 
   const viewAlbum = (albumName: string) => {
+    setIsLoading(true)
     fetch(`/api/view-album?albumName=${encodeURIComponent(albumName)}`)
       .then((response) => (response.json()))
       .then((data) => {
@@ -129,9 +130,9 @@ export default function DashboardView() {
     
   return (
     <div>
-    <div className="flex gap-5">
-        <div className="w-1/4">
-            <div className="border-[#D1D1D6] border rounded-lg p-5 h-screen">
+    <div className="flex flex-col lg:flex-row gap-5">
+        <div className="lg:w-[25%]">
+            <div className="border-[#D1D1D6] border rounded-lg p-5 lg:h-screen xl:h-screen md:h-screen">
                 <Image src="/assets/images/logo.svg" width={200} height={200} alt="" className="w-[350px]" />
                 <p className="mt-10 font-[600] text-[15px]">Classes filter</p>
                 <p className="mt-10">
@@ -153,7 +154,7 @@ export default function DashboardView() {
                 </div>
             </div>
         </div>
-        <div className="w-3/4">
+        <div className="lg:w-[75%]">
             <div className="px-5">
                 <div className="flex justify-between">
                     <div className="text-[32px] font-[600] ">Bone-fracture-detection </div>
@@ -172,7 +173,7 @@ export default function DashboardView() {
                   ))}
                 </div>
                 <div className="flex justify-center mt-5">
-                  {isLoading ? <PhotosPlacerholder showCount={20}/> :
+                  {isLoading ? <PhotosPlacerholder showCount={16}/> :
                   getTabContent(tab)
                   }
                 </div>
