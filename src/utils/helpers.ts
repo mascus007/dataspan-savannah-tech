@@ -6,10 +6,9 @@ export function getImageNameFormKey(imageUrl: string){
 }
 
 export async function getFileContent(labelUrl: string){
-    let labelContent = ""
-    const response = await fetch(labelUrl);
-    if (response.ok) {
-      labelContent = await response.text();
-    }
-    return labelContent
+    fetch(labelUrl)
+    .then((response) => (response.text()))
+   
+    .catch((error) => console.error('Error fetching photos:', error));
+    
   }

@@ -21,7 +21,7 @@ export default function DashboardView() {
 
   useEffect(() => {
     viewAlbum("bone-fracture-detection");
-    // alert("I spent about six hrs on the assignment")
+    alert("I spent about six hrs on the assignment")
   }, []);
 
   // const listAlbums = () => {
@@ -182,18 +182,6 @@ export default function DashboardView() {
   const clearFilters = () =>{
     setSelectedClassFilter([])
     setSelected(0)
-  }
-
-  const getRangePer = (range:number) =>{
-    console.log("range--->",range)
-    const pers ={
-      0:"0%",
-      1:"25%",
-      2:"50%",
-      3:"75%",
-      4:"100%"
-    } as any 
-    return pers[range]
   }
 
 

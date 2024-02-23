@@ -24,18 +24,12 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     try {
         const albumBucketName = 'dataspan.frontend-home-assignment';
         const albumPhotosKey = encodeURIComponent(albumName as string) + '/';
-        // const s3 = new AWS.S3({
-        //     apiVersion: '2006-03-01',
-        //     params: { Bucket: albumBucketName },
-        // }) as any;
 
         const data = await s3.listObjects({ Prefix: albumPhotosKey }).promise();
 
         let testData = await s3.listObjects({ Prefix: albumPhotosKey + "test/images" }).promise();
         let trainData = await s3.listObjects({ Prefix: albumPhotosKey + "train/images" }).promise();
         let validData = await s3.listObjects({ Prefix: albumPhotosKey + "valid/images" }).promise();
-
-        let testLabels = await s3.listObjects({ Prefix: albumPhotosKey + "test/labels" }).promise();
         
 
         const bucketUrl = s3.getSignedUrl('getObject', {
