@@ -21,21 +21,21 @@ export default function Slider({rangeMin, rangeMax, setSelectedMinRange, setSele
                 <div className=" grid grid-cols-2 gap-1">
                     <div className="">
                         <div className="flex  gap-2 ">
-                            <div className="w-1/2 h-2 bg-[#FFD75C] left-0 right-0 top-1/2 transform -translate-y-1/2"/>
-                            <div className="w-1/2 h-2 bg-[#FFD75C] left-0 right-0 top-1/2 transform -translate-y-1/2"/>
+                            <div className={`w-1/2 h-1 ${rangeMin > 0 ? `border border-[#FFD75C]`: "bg-[#FFD75C]"} left-0 right-0 top-1/2 transform -translate-y-1/2 rounded-xl`}/>
+                            <div className="w-1/2 h-1 bg-[#FFD75C] left-0 right-0 top-1/2 transform -translate-y-1/2 rounded-xl"/>
                         </div>
                         <input type="range" min="0" max="2" defaultValue={rangeMin}
-                            className={`absolute w-[50%]s h-full opacity-0s cursor-pointer bg-transparent -mt-3 thumb-slider thumbSlider`}  
+                            className={`absolute w-[50%]s h-full opacity-0s cursor-pointer bg-transparent -mt-3 `}  
                             onChange={(e: any) => setSelectedMinRange(e.target.value)}
                         />
                     </div>
                     <div>
                         <div className="flex  gap-2 ">
-                            <div className="w-1/2 h-2 bg-[#FFD75C] left-0 right-0 top-1/2 transform -translate-y-1/2"/>
-                            <div className="w-1/2 h-2 bg-[#FFD75C] left-0 right-0 top-1/2 transform -translate-y-1/2"/>
+                            <div className="w-1/2 h-1 bg-[#FFD75C] left-0 right-0 top-1/2 transform -translate-y-1/2 rounded-xl"/>
+                            <div className={`w-1/2 h-1 ${rangeMax < 2 ? `border border-[#FFD75C]`: "bg-[#FFD75C]"} left-0 right-0 top-1/2 transform -translate-y-1/2 rounded-xl`}/>
                         </div>
                         <input type="range" min="0" max="2" defaultValue={rangeMax}
-                            className={`absolute w-[50%]s h-full opacity-0s cursor-pointer bg-transparent -mt-3 thumb-slider thumbSlider`}  
+                            className={`absolute w-[50%]s h-full opacity-0s cursor-pointer bg-transparent -mt-3`}  
                             onChange={(e: any) => setSelectedMaxRange(e.target.value)}
                         />
                     </div>
