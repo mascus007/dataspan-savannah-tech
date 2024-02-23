@@ -20,7 +20,7 @@ export default function DashboardView() {
     const [selected, setSelected] = useState<number>(0);
     const [selectedClassFilter, setSelectedClassFilter] = useState<any[]>([]);
     const [selectedMinRange, setSelectedMinRange] = useState<number>(0);
-    const [selectedMaxRange, setSelectedMaxRange] = useState<number>(0);
+    const [selectedMaxRange, setSelectedMaxRange] = useState<number>(2);
 
   useEffect(() => {
     viewAlbum("bone-fracture-detection");
