@@ -32,7 +32,7 @@ export default function ImageCard({photos}:{photos: any[]}){
                     <div key={idx} className="mb-1">
                         <div style={{ position: 'relative', width: '100%' }}  onClick={() => handleShow(photo)}>
                             <img 
-                                className="w-24 h-24 cursor-pointer" 
+                                className="w-full h-24 cursor-pointer" 
                                 src={photo.thumbnail} alt={photo.thumbnail} 
                             />
                             <PolygonCanvas labelUrl={photo.label} />
