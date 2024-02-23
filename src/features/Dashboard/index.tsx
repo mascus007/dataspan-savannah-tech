@@ -7,6 +7,7 @@ import AllGroups from "./AllGroups";
 import Train from "./Train";
 import Valid from "./Valid";
 import Test from "./Test";
+import Slider from "@/components/Slider";
 
 export default function DashboardView() {
 
@@ -18,6 +19,8 @@ export default function DashboardView() {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [selected, setSelected] = useState<number>(0);
     const [selectedClassFilter, setSelectedClassFilter] = useState<any[]>([]);
+    const [selectedMinRange, setSelectedMinRange] = useState<number>(0);
+    const [selectedMaxRange, setSelectedMaxRange] = useState<number>(0);
 
   useEffect(() => {
     viewAlbum("bone-fracture-detection");
@@ -184,6 +187,18 @@ export default function DashboardView() {
     setSelected(0)
   }
 
+  const getRangePer = (range:number) =>{
+    console.log("range--->",range)
+    const pers ={
+      0:"0%",
+      1:"25%",
+      2:"50%",
+      3:"75%",
+      4:"100%"
+    } as any 
+    return pers[range]
+  }
+
 
   const getTabContent = (tab : number) =>{
     const contentObj = {
@@ -226,12 +241,13 @@ export default function DashboardView() {
                 </div>
                 <div>
                   <p className="font-[600] mt-5">Poligon range</p>
-                  <div className="flex justify-between mb-20 mt-3">
-                    <div>min <span className="font-[600]">0</span> </div>
-                    <div>max  <span className="font-[600]">4</span></div>
-                  </div>
-                  
-                  <div className="flex justify-between mt-5">
+                  <Slider 
+                    rangeMin={selectedMinRange} 
+                    setSelectedMinRange={setSelectedMinRange} 
+                    rangeMax={selectedMaxRange} 
+                    setSelectedMaxRange={setSelectedMaxRange}
+                  />
+                  <div className="flex justify-between mt-5 px-5">
                     <div className="font-[600] cursor-pointer" onClick={clearFilters}><i className="bi bi-trash"/>Clear filters </div>
                     <div className="text-gray-400 cursor-pointer">Need help? </div>
                   </div>

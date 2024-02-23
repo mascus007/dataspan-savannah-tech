@@ -1,5 +1,5 @@
 import ModalDialog from "@/components/modals";
-import Pagination, { getPageData } from "@/components/pagination";
+import Pagination, { getPageData } from "@/components/Pagination";
 import { useState } from "react";
 
 export default function Train({photos}:{photos: any[]}){
