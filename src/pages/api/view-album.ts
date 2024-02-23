@@ -35,6 +35,9 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         let trainData = await s3.listObjects({ Prefix: albumPhotosKey + "train/images" }).promise();
         let validData = await s3.listObjects({ Prefix: albumPhotosKey + "valid/images" }).promise();
 
+        let testLabels = await s3.listObjects({ Prefix: albumPhotosKey + "test/labels" }).promise();
+        
+
         const bucketUrl = s3.getSignedUrl('getObject', {
             Bucket: albumBucketName,
             Key: data.Contents.length > 0 ? data.Contents[0].Key : ''
@@ -45,26 +48,22 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
         const hostName = href.hostname;  
         const baseUrl = `https://${hostName}/${albumBucketName}/`;
+        const subBucketName = "bone-fracture-detection/"
 
-       
-        testData = testData.Contents.slice(0, 200).map((photo: any) => ({
-            key: photo.Key,
-            image: `${baseUrl}${encodeURIComponent(photo.Key)}`,
-            name: getImageNameFormKey(photo.Key)
-            
-        }));
+        testData = testData.Contents.slice(0, 200).map((photo: any) => {
+            const mainKey = getKeyFromImage(photo.Key)
+            return generateRespObj("test", photo, baseUrl, subBucketName, mainKey)
+          });
 
-        trainData = trainData.Contents.slice(0, 200).map((photo: any) => ({
-            key: photo.Key,
-            image: `${baseUrl}${encodeURIComponent(photo.Key)}`,
-            name: getImageNameFormKey(photo.Key)
-        }));
+        trainData = trainData.Contents.slice(0, 200).map((photo: any) => {
+          const mainKey = getKeyFromImage(photo.Key)
+          return generateRespObj("train", photo, baseUrl, subBucketName, mainKey)
+        });
 
-        validData = validData.Contents.slice(0, 200).map((photo: any) => ({
-            key: photo.Key,
-            image: `${baseUrl}${encodeURIComponent(photo.Key)}`,
-            name: getImageNameFormKey(photo.Key)
-        }));
+        validData = validData.Contents.slice(0, 200).map((photo: any) => {
+          const mainKey = getKeyFromImage(photo.Key)
+          return generateRespObj("valid", photo, baseUrl, subBucketName, mainKey)
+        });
 
         res.status(200).json({ 
             allGroups: [...testData, ...trainData, ...validData],
@@ -80,3 +79,21 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   }
 
   export default handler;
+
+
+  function getKeyFromImage(imageUrl: string){
+    const namePath = imageUrl?.split("/");
+    const fileName = namePath[namePath.length - 1];
+    const filenameWithoutExtension = fileName.replace(/\.[^.]+$/, '');
+    return filenameWithoutExtension
+}
+
+function generateRespObj(dirName:string, photo: any, baseUrl:string, subBucketName:string, mainKey:string){
+  return{
+    key: photo.Key,
+    image: `${baseUrl}${encodeURIComponent(photo.Key)}`,
+    thumbnail: `${baseUrl}${encodeURIComponent(`${subBucketName}${dirName}/thumbnails/${mainKey}.jpg`)}`,
+    name: getImageNameFormKey(photo.Key), 
+    label: `${baseUrl}${encodeURIComponent(`${subBucketName}${dirName}/labels/${mainKey}.txt`)}`,
+  }
+}

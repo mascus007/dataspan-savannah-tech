@@ -3,11 +3,8 @@ import PhotosPlacerholder from "@/components/placeholders";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import AllGroups from "./AllGroups";
-import Train from "./Train";
-import Valid from "./Valid";
-import Test from "./Test";
 import Slider from "@/components/Slider";
+import ImageCard from "@/components/ImageCard";
 
 export default function DashboardView() {
 
@@ -24,7 +21,7 @@ export default function DashboardView() {
 
   useEffect(() => {
     viewAlbum("bone-fracture-detection");
-    alert("I spent about six hrs on the assignment")
+    // alert("I spent about six hrs on the assignment")
   }, []);
 
   // const listAlbums = () => {
@@ -202,10 +199,10 @@ export default function DashboardView() {
 
   const getTabContent = (tab : number) =>{
     const contentObj = {
-      1: <AllGroups photos={photos?.allGroups || []}/>,
-      2: <Train photos={photos?.train || []}/>,
-      3: <Valid photos={photos?.valid || []}/>,
-      4: <Test photos={photos?.test || []}/>,
+      1: <ImageCard photos={photos?.allGroups || []}/>,
+      2: <ImageCard photos={photos?.train || []}/>,
+      3: <ImageCard photos={photos?.valid || []}/>,
+      4: <ImageCard photos={photos?.test || []}/>,
     } as any
 
     return contentObj[tab]
