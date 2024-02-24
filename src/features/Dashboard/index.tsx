@@ -23,7 +23,7 @@ export default function DashboardView() {
 
   useEffect(() => {
     viewAlbum("bone-fracture-detection");
-    // alert("I spent about six hrs on the assignment")
+    alert("I spent about six hrs on the assignment")
   }, []);
 
   // const listAlbums = () => {
@@ -73,10 +73,10 @@ export default function DashboardView() {
 
 const handleRangeSelector = (searchRange: string[]) => {
   console.log("searchRange-->",searchRange)
-  // handleSearchDataAll(photos?.allGroups, searchRange);
-  // handleSearchDataTrain(photos?.train, searchRange)
-  // handleSearchDataValid(photos?.valid, searchRange)
-  // handleSearchDataTest(photos?.test, searchRange)
+  handleSearchDataAll(photos?.allGroups, searchRange);
+  handleSearchDataTrain(photos?.train, searchRange)
+  handleSearchDataValid(photos?.valid, searchRange)
+  handleSearchDataTest(photos?.test, searchRange)
 };
 
 
@@ -216,6 +216,8 @@ const handleRangeSelector = (searchRange: string[]) => {
     setSelectedClassFilter([])
     setSelected(0)
     handleSearchAll([])
+    setSelectedMinRange(0)
+    setSelectedMaxRange(2)
   }
 
 

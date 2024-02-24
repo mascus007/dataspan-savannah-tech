@@ -112,7 +112,7 @@ async function generateRespObj(dirName:string, photo: any, baseUrl:string, subBu
     coordinates: coordinates,
     classId: classId,
     className: className,
-    polygCount: polygCount
+    polygCount: `${polygCount}`
   }
 }
 

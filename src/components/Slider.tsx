@@ -19,7 +19,7 @@ export default function Slider({handleOnChangeSearch, rangeMin, rangeMax, setSel
     }
     const handleMaxChange = (maxValue: number) =>{
         setSelectedMaxRange(maxValue)
-        const maxValueInt = parseInt(`${rangeMax}`) + 2; 
+        const maxValueInt = parseInt(`${maxValue}`) + 2; 
         const rangeSelected = generateNumberArray(rangeMin, maxValueInt)
         handleOnChangeSearch(rangeSelected)
     }
@@ -39,7 +39,7 @@ export default function Slider({handleOnChangeSearch, rangeMin, rangeMax, setSel
                             <div className={`w-1/2 h-1 ${rangeMin > 0 ? `border border-[#FFD75C]`: "bg-[#FFD75C]"} left-0 right-0 top-1/2 transform -translate-y-1/2 rounded-xl`}/>
                             <div className="w-1/2 h-1 bg-[#FFD75C] left-0 right-0 top-1/2 transform -translate-y-1/2 rounded-xl"/>
                         </div>
-                        <input type="range" min="0" max="2" defaultValue={rangeMin}
+                        <input type="range" min="0" max="2" value={rangeMin}
                             className={`absolute w-[50%]s h-full opacity-0s cursor-pointer bg-transparent -mt-3 `}  
                             onChange={(e: any) =>  handleMinChange(e.target.value)}
                         />
@@ -49,7 +49,7 @@ export default function Slider({handleOnChangeSearch, rangeMin, rangeMax, setSel
                             <div className="w-1/2 h-1 bg-[#FFD75C] left-0 right-0 top-1/2 transform -translate-y-1/2 rounded-xl"/>
                             <div className={`w-1/2 h-1 ${rangeMax < 2 ? `border border-[#FFD75C]`: "bg-[#FFD75C]"} left-0 right-0 top-1/2 transform -translate-y-1/2 rounded-xl`}/>
                         </div>
-                        <input type="range" min="0" max="2" defaultValue={rangeMax}
+                        <input type="range" min="0" max="2" value={rangeMax}
                             className={`absolute w-[50%]s h-full opacity-0s cursor-pointer bg-transparent -mt-3`}  
                             onChange={(e: any) => handleMaxChange(e.target.value)}
                         />
