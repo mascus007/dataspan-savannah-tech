@@ -12,3 +12,13 @@ export async function getFileContent(labelUrl: string){
     .catch((error) => console.error('Error fetching photos:', error));
     
   }
+
+  export function generateNumberArray(min:number, max:number) {
+    const result = [];
+  
+    for (let i = min; i <= max; i++) {
+      result.push(`${i}`);
+    }
+
+    return result;
+  }

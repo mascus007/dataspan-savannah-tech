@@ -1,14 +1,29 @@
+import { generateNumberArray } from "@/utils/helpers";
 
 interface ISlider {
+    handleOnChangeSearch: (range: string[]) => void;
     rangeMin:number;
     setSelectedMinRange: (range:number) => void
     rangeMax:number;
     setSelectedMaxRange: (range:number) => void
 }
-export default function Slider({rangeMin, rangeMax, setSelectedMinRange, setSelectedMaxRange}:ISlider){
+export default function Slider({handleOnChangeSearch, rangeMin, rangeMax, setSelectedMinRange, setSelectedMaxRange}:ISlider){
     
    
     const maxValue = parseInt(`${rangeMax}`) + 2; 
+
+    const handleMinChange = (minValue: number) =>{
+        setSelectedMinRange(minValue)
+        const rangeSelected = generateNumberArray(minValue, maxValue)
+        handleOnChangeSearch(rangeSelected)
+    }
+    const handleMaxChange = (maxValue: number) =>{
+        setSelectedMaxRange(maxValue)
+        const maxValueInt = parseInt(`${rangeMax}`) + 2; 
+        const rangeSelected = generateNumberArray(rangeMin, maxValueInt)
+        handleOnChangeSearch(rangeSelected)
+    }
+
     
     return(
         <div className="grid w-full">
@@ -26,7 +41,7 @@ export default function Slider({rangeMin, rangeMax, setSelectedMinRange, setSele
                         </div>
                         <input type="range" min="0" max="2" defaultValue={rangeMin}
                             className={`absolute w-[50%]s h-full opacity-0s cursor-pointer bg-transparent -mt-3 `}  
-                            onChange={(e: any) => setSelectedMinRange(e.target.value)}
+                            onChange={(e: any) =>  handleMinChange(e.target.value)}
                         />
                     </div>
                     <div>
@@ -36,7 +51,7 @@ export default function Slider({rangeMin, rangeMax, setSelectedMinRange, setSele
                         </div>
                         <input type="range" min="0" max="2" defaultValue={rangeMax}
                             className={`absolute w-[50%]s h-full opacity-0s cursor-pointer bg-transparent -mt-3`}  
-                            onChange={(e: any) => setSelectedMaxRange(e.target.value)}
+                            onChange={(e: any) => handleMaxChange(e.target.value)}
                         />
                     </div>
                 </div>

@@ -5,6 +5,8 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import Slider from "@/components/Slider";
 import ImageCard from "@/components/ImageCard";
+import useSearchData from "@/utils/hooks";
+import { classes } from "@/utils/constants";
 
 export default function DashboardView() {
 
@@ -19,9 +21,11 @@ export default function DashboardView() {
     const [selectedMinRange, setSelectedMinRange] = useState<number>(0);
     const [selectedMaxRange, setSelectedMaxRange] = useState<number>(2);
 
+
+
   useEffect(() => {
     viewAlbum("bone-fracture-detection");
-    alert("I spent about six hrs on the assignment")
+    // alert("I spent about six hrs on the assignment")
   }, []);
 
   // const listAlbums = () => {
@@ -48,6 +52,31 @@ export default function DashboardView() {
       })
       .catch((error) => console.error('Error fetching photos:', error));
   };
+
+  const {handleSearchData:handleSearchDataAll, responseData: responseDataAll} = useSearchData(photos?.allGroups)
+  const {handleSearchData:handleSearchDataTrain, responseData: responseDataTrain} = useSearchData(photos?.train)
+  const {handleSearchData:handleSearchDataValid, responseData: responseDataValid} = useSearchData(photos?.valid)
+  const {handleSearchData:handleSearchDataTest, responseData: responseDataTest} = useSearchData(photos?.test)
+
+  const handleSearchAll = (searchText: string[]) => {
+    if(searchText.length > 0){
+      searchText.push("none")
+    }
+    
+    handleSearchDataAll(photos?.allGroups, searchText);
+    handleSearchDataTrain(photos?.train, searchText)
+    handleSearchDataValid(photos?.valid, searchText)
+    handleSearchDataTest(photos?.test, searchText)
+};
+
+const handleRangeSelector = (searchRange: string[]) => {
+  console.log("searchRange-->",searchRange)
+  // handleSearchDataAll(photos?.allGroups, searchRange);
+  // handleSearchDataTrain(photos?.train, searchRange)
+  // handleSearchDataValid(photos?.valid, searchRange)
+  // handleSearchDataTest(photos?.test, searchRange)
+};
+
 
   const handleOnTabClick = (tab: number) =>{
     setTab(tab)
@@ -77,18 +106,11 @@ export default function DashboardView() {
   const handleSelected = (select:number) => {
     setSelected(select)
     if(select == 1){
-      setSelectedClassFilter(
-        [
-          "elbow_positive",
-          "fingers_positive",
-          "humerus",
-          "forearm_fracture",
-          "humerus_fracture",
-          "shoulder_fracture",
-          "wrist_positive"
-      ])
+      setSelectedClassFilter(classes)
+      handleSearchAll(classes)
     }else{
       setSelectedClassFilter([])
+      handleSearchAll([])
     }
   }
 
@@ -177,20 +199,33 @@ export default function DashboardView() {
   ]
 
   const handleSelectClassFilter = (btnName:string) =>{
-    setSelectedClassFilter([btnName])
+    if(selectedClassFilter.includes(btnName)){
+      let classArray = selectedClassFilter.filter(item => item !== btnName);
+      setSelectedClassFilter(classArray)
+      handleSearchAll(classArray)
+    }else{
+      const classesSel = [...selectedClassFilter, btnName]
+      setSelectedClassFilter(classesSel)
+      handleSearchAll(classesSel)
+    }
+    
   }
   const clearFilters = () =>{
     setSelectedClassFilter([])
     setSelected(0)
+    handleSearchAll([])
   }
+
+
+
 
 
   const getTabContent = (tab : number) =>{
     const contentObj = {
-      1: <ImageCard photos={photos?.allGroups || []}/>,
-      2: <ImageCard photos={photos?.train || []}/>,
-      3: <ImageCard photos={photos?.valid || []}/>,
-      4: <ImageCard photos={photos?.test || []}/>,
+      1: <ImageCard photos={responseDataAll || []}/>,
+      2: <ImageCard photos={responseDataTrain || []}/>,
+      3: <ImageCard photos={responseDataValid || []}/>,
+      4: <ImageCard photos={responseDataTest || []}/>,
     } as any
 
     return contentObj[tab]
@@ -227,6 +262,7 @@ export default function DashboardView() {
                 <div>
                   <p className="font-[600] mt-5">Poligon range</p>
                   <Slider 
+                    handleOnChangeSearch={handleRangeSelector}
                     rangeMin={selectedMinRange} 
                     setSelectedMinRange={setSelectedMinRange} 
                     rangeMax={selectedMaxRange} 

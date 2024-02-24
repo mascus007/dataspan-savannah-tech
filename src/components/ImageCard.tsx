@@ -35,7 +35,7 @@ export default function ImageCard({photos}:{photos: any[]}){
                                 className="w-full h-24 cursor-pointer" 
                                 src={photo.thumbnail} alt={photo.thumbnail} 
                             />
-                            <PolygonCanvas labelUrl={photo.label} />
+                            <PolygonCanvas photo={photo} />
                         </div>
                         <div className="truncate" title={photo.name}>{photo.name}</div>
                     </div>
@@ -53,7 +53,7 @@ export default function ImageCard({photos}:{photos: any[]}){
                                 <button className=" rounded-full  px-5 mb-4 bg-yellow-400">fracture_1</button>
                                 <div style={{ position: 'relative', width: '100%' }}>
                                 <img className="w-full h-full rounded-lg bg-white shadow-inner object-cover cursor-pointer"  src={photoData?.image} alt={photoData?.image} />
-                                <PolygonCanvas labelUrl={photoData.label} />
+                                <PolygonCanvas photo={photoData} />
                                 </div>
                             </div>}
                         setShowModal={setShowImage}
