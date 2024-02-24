@@ -23,7 +23,7 @@ export default function DashboardView() {
 
   useEffect(() => {
     viewAlbum("bone-fracture-detection");
-    // alert("I spent about six hrs on the assignment")
+    alert("I spent about six hrs on the assignment")
   }, []);
 
   // const listAlbums = () => {

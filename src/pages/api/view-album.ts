@@ -63,7 +63,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         }))
 
         res.status(200).json({ 
-            allGroups: [...testData],
+            allGroups: [...testData, ...trainData, ...validData],
             test: testData,
             train: trainData,
             valid: validData,
