@@ -10,9 +10,7 @@ import { classes } from "@/utils/constants";
 
 export default function DashboardView() {
 
-    const [albums, setAlbums] = useState([]);
     const [photos, setPhotos] = useState<any>({allGroups:[], test: [], train:[], valid:[]});
-    const [currentAlbum, setCurrentAlbum] = useState<string | null>(null);
     const [tab, setTab] = useState<number>(1);
     const [activePhotoCount, setActivePhotoCount] = useState<number>(0);
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -45,7 +43,6 @@ export default function DashboardView() {
       .then((response) => (response.json()))
       .then((data) => {
         setPhotos(data);
-        setCurrentAlbum(albumName);
         const totalCountAll = data?.allGroups?.length
         if(totalCountAll)setActivePhotoCount(totalCountAll)
         setIsLoading(false)
