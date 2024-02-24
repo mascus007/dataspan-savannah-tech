@@ -15,3 +15,7 @@ export default function useSearchData(data:any[]){
     }
     return {handleSearchData, responseData}
 }
+
+export function areAllNone(array: string[]) {
+    return array.every(item => item === "none");
+  }

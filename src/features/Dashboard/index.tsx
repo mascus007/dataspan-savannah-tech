@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import Slider from "@/components/Slider";
 import ImageCard from "@/components/ImageCard";
-import useSearchData from "@/utils/hooks";
+import useSearchData, { areAllNone } from "@/utils/hooks";
 import { classes } from "@/utils/constants";
 
 export default function DashboardView() {
@@ -59,14 +59,19 @@ export default function DashboardView() {
   const {handleSearchData:handleSearchDataTest, responseData: responseDataTest} = useSearchData(photos?.test)
 
   const handleSearchAll = (searchText: string[]) => {
+    let searchBy = searchText
     if(searchText.length > 0){
-      searchText.push("none")
+      searchBy.push("none")
+    }
+    if(areAllNone(searchBy)){
+      searchBy=[]
     }
     
-    handleSearchDataAll(photos?.allGroups, searchText);
-    handleSearchDataTrain(photos?.train, searchText)
-    handleSearchDataValid(photos?.valid, searchText)
-    handleSearchDataTest(photos?.test, searchText)
+    handleSearchDataAll(photos?.allGroups, searchBy);
+    handleSearchDataTrain(photos?.train, searchBy)
+    handleSearchDataValid(photos?.valid, searchBy)
+    handleSearchDataTest(photos?.test, searchBy)
+    searchBy = []
 };
 
 const handleRangeSelector = (searchRange: string[]) => {
